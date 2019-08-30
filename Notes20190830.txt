@@ -20,3 +20,21 @@ Scenario:
 	7) Data storage part of original app uses STS creds to make S3 requests
 	8) S3 uses IAM to validate STS creds
 	9) IAM authorizes s3 to perform requested action
+	
+Logging:
+	Read white paper: "Security at Scale: Logging in AWS"
+	Remember ISO 27001, PCI DSS, FedRamp, HIPAA, and other security standards with common logging reqs
+	Control access with: MFA delete on object, S3 bucket policies, IAM policies to restrict users/groups/roles/policies
+	AWS CloudTrail, Config, CloudWatch, VPC Flow logs are main AWS services
+	CloudWatch monitors performance, CloudTrail monitors API calls, Config records env state and notifies of changes
+
+Security Groups are config of the firewall of the hypervisor
+Physical interface -> Firewall -> Customer1 Sec Group -> Virtual Inteface -> Hypervisor -> Customer 1 services like EC2 virtual instances
+Virtual Instances are 100% customer responsibility and they have root access to it
+Memory scrubbing automatically occurs setting all block storage to 0s before allowing another customer use
+HVM (Hardware Virtual Machine) over PV (ParaVirtualization) where possible. PV no longer quicker and isolated by layers Guest OS on layer 1, apps layer 3. HVM guests fully virtualized and not aware sharing processing time.
+AWS admins have access to hypervisor host machines which run virtual guest machines
+
+Tenancy field on 3. Configure Instance ec2 setup
+Dedicated Instances run in VPC on hardware dedicated to a single customer (other non-dedicated instances by same customer may end up in same hardware)
+Dedicated Hosts give you additional visibility on hardware each host is and satisfies licensing, regulatory, compliance reqs. Can see sockets, cores, host id, etc. targeted placement, affinity between host and instance
