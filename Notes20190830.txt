@@ -38,3 +38,13 @@ AWS admins have access to hypervisor host machines which run virtual guest machi
 Tenancy field on 3. Configure Instance ec2 setup
 Dedicated Instances run in VPC on hardware dedicated to a single customer (other non-dedicated instances by same customer may end up in same hardware)
 Dedicated Hosts give you additional visibility on hardware each host is and satisfies licensing, regulatory, compliance reqs. Can see sockets, cores, host id, etc. targeted placement, affinity between host and instance
+
+AWS Systems Manager EC2 Run Command - EC2 Role for Systems Manager in IAM
+Run Command has some defaults, even for windows PITA to login and dont need 3389 rdp security group rule, and also shows AWS cli equiv at bottom of SSM UI
+Can run commands on list of instances based on instance tags or selecting manually
+SSM agent needs to be installed and role allowing on managed instances and can be on prem too
+
+Parameter Store - Under EC2 left pane bottom Systems Manager Shared Resources
+e.g. Adobe License Key using KMS encryption that can be applied elsewhere as single object, call in lambda CF etc. 
+Confidential information store - pw, db connection strings, license codes, etc.
+Systems Manager Parameter Store compatible with ec2, ec2 run command, lambda, CloudFormation
