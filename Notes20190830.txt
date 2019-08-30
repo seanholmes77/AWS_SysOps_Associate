@@ -1,0 +1,22 @@
+Security Token Service
+Federation:
+    Active Directory, Uses SAML Security Assertion Markup Language
+	Allows access to one domain (AWS) based on membership roles in another domain (AD)
+Identity Broker:
+	Allows you to take identity with one service and federate it with another (Okta)
+Identity Store:
+	Services like AD, Facebook, Gmail
+Scenario:
+	1) User enters username and password
+	2) Application calls Identity Broker (Okta) and it captures un + pw
+	3) Identity broker validates un + pw with existing LDAP directory
+	4) Identity broker calls GetFederationToken function using IAM credentials. The call for temp creds must reference existing IAM policy and 1-36 hr duration
+	5) STS confirms IAM policy allowed by IAM user gives permission to create new tokens and returns 4 values:
+		a) access key
+		b) secret access key
+		c) token
+		d) duration (token life)
+	6) Identity broker returns temp creds from STS to original application
+	7) Data storage part of original app uses STS creds to make S3 requests
+	8) S3 uses IAM to validate STS creds
+	9) IAM authorizes s3 to perform requested action
