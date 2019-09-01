@@ -48,3 +48,9 @@ Parameter Store - Under EC2 left pane bottom Systems Manager Shared Resources
 e.g. Adobe License Key using KMS encryption that can be applied elsewhere as single object, call in lambda CF etc. 
 Confidential information store - pw, db connection strings, license codes, etc.
 Systems Manager Parameter Store compatible with ec2, ec2 run command, lambda, CloudFormation
+
+S3 pre-signed URLs
+IAM S3 admin access applied to ec2
+"aws s3 mb s3://exampbucks" makes bucket
+"aws s3 ls s3://exampbucks" list objects in bucket
+"aws s3 presign s3://exampbucks/hello.txt --expires-in 300" pre-signed url for 300 seconds, even if bucket or acl private 
