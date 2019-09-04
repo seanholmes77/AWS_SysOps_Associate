@@ -1,0 +1,8 @@
+VPC and Networking
+Build a VPC from memory for exam - virtual data center in the cloud and soft limit of 5 per region (aws can increase)
+Internet gateway (or Virtual Private Gateway) connects your defined VPC partition of AWS regional infra to internet
+then hits router's Route Table within your VPC -> Network ACL -> Public or Private subnets -> Security groups -> Instances
+Internal subnets are 10.0.0.0/8 , 172.16.0.0/12 , 192.168.0.0/16 cidr.xyz
+All subnets in default VPC have a route out to internet, unlike custom VPC
+Since all subnets public, instances launched in them have both public and private IP
+VPC peering is direct, not transitive. SGs stateful, NACLs stateless
