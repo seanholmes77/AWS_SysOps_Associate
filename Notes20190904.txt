@@ -6,3 +6,21 @@ Internal subnets are 10.0.0.0/8 , 172.16.0.0/12 , 192.168.0.0/16 cidr.xyz
 All subnets in default VPC have a route out to internet, unlike custom VPC
 Since all subnets public, instances launched in them have both public and private IP
 VPC peering is direct, not transitive. SGs stateful, NACLs stateless
+
+Creating a new VPC also creates default SG <- NACL <- route table.
+It will NOT create subnets, internet gateway, 
+AWS subnets reserve first 4 IP addresses and last IP address in each CIDR block. 
+e.g. 10.0.0.0/24 reserves:
+10.0.0.0 = network address
+10.0.0.1 = VPC router address
+10.0.0.2 = DNS server address (network_base+=2 always)
+10.0.0.3 = reserved for AWS future use
+10.0.0.255 = broadcast address (AWS restricted)
+
+Can only attach internet gateway (igw) to 1 VPC at a time.
+NAT instances obsolete but on exam. Must disable source/destination checks bc nat instances send traffic where they are not source or destination.
+NAT gateways take 10 mins or so to provision and also need route added in route table for 0.0.0.0/0 destination and NAT as target
+Egress Only Internet Gateways are ipv6 equivalent of NAT gateways
+NAT gateway launched in public subnet with 0.0.0.0/0 route and NAT Gateway as target in route table associated with private subnets. 
+NAT gateways patched (and SGs w/ pub ip), scale up to 10 Gbps unlike instances bottle neck based on size (without scripting and other services)
+
