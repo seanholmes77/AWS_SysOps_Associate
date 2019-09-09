@@ -24,3 +24,18 @@ Egress Only Internet Gateways are ipv6 equivalent of NAT gateways
 NAT gateway launched in public subnet with 0.0.0.0/0 route and NAT Gateway as target in route table associated with private subnets. 
 NAT gateways patched (and SGs w/ pub ip), scale up to 10 Gbps unlike instances bottle neck based on size (without scripting and other services)
 
+Each subnet can have 1 ACL. ACL:subnets = 1:many. Subnet uses newest NACL association, and reverts to #2 if that one removed.
+Default VPC comes with NACLs open for traffic. Custom created VPC have default NACLs that default to deny everything though.
+Start NACL inbound rules in increments of 100 for types of traffic. Can refine/adjust 100 times between then.
+Block IPs with NACL before it reaches SGs (within subnet). Route table = road and NACL = gate. 
+
+VPC endpoints are like a NAT gateway for another service like RDS, or more commonly an ENI as a secure interface entry point for that service.
+VPC Flow Logs provides IP traffic information going to/from network interfaces in a VPC. Forwards to CloudWatch.
+3 possible flow log levels: VPC, subnet, or network interface
+VPC dash -> Actions -> Create Flow Log. All, Accepted, or Denied traffic only. IAM Flow Logs role, CW log group. 
+Cannot enable flow logs for peered VPCs unless in same AWS account.
+Does NOT monitor traffic to: AWS DNS servers, 169.254.169.254, DHCP or reserved IPs, Windows license activation
+CIDR math, /24 = netmask 255.255.255.0, first IP, last IP, /24 = 256-5 = 251, /25 = 128-5 = 123. max = /16, min = /28.
+
+AWS Direct Connect connection from customer network to AWS private virtual interface in AWS region.
+Direct Connect Gateway would route traffic from customer network -> direct connection in US-East1 -> Direct Connect Gateway -> US-West1 services
