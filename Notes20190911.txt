@@ -1,0 +1,8 @@
+AWS Automation
+CloudFormation - provision AWS Infrastructure as Code, consistently and more efficiently once template established, easily delete whole stack
+YAML or JSON template upload to CloudFormation (S3 bucket) that makes API calls on your behalf
+Parameters - input custom values and env variables
+Conditions - provision resources based on environment (if prod, provision 6 desired qty. if test, desire 2)
+Resources - 1 mandatory section to create AWS resources
+Mappings - custom mappings like Region:AMI
+Transforms - reference code located in S3 like lambda code or reusable snippets of CloudFormation
