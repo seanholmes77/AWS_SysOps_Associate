@@ -24,8 +24,8 @@ Egress Only Internet Gateways are ipv6 equivalent of NAT gateways
 NAT gateway launched in public subnet with 0.0.0.0/0 route and NAT Gateway as target in route table associated with private subnets. 
 NAT gateways patched (and SGs w/ pub ip), scale up to 10 Gbps unlike instances bottle neck based on size (without scripting and other services)
 
-Each subnet can have 1 ACL. ACL:subnets = 1:many. Subnet uses newest NACL association, and reverts to #2 if that one removed.
-Default VPC comes with NACLs open for traffic. Custom created VPC have default NACLs that default to deny everything though.
+Each subnet must have 1 ACL (default if not specified). ACL:subnets = 1:many. Subnet uses newest NACL association, and reverts #2 if #1 removed.
+Default VPC comes with NACLs open for traffic. Custom created NACLs default to deny everything though.
 Start NACL inbound rules in increments of 100 for types of traffic. Can refine/adjust 100 times between then.
 Block IPs with NACL before it reaches SGs (within subnet). Route table = road and NACL = gate. 
 
@@ -39,3 +39,19 @@ CIDR math, /24 = netmask 255.255.255.0, first IP, last IP, /24 = 256-5 = 251, /2
 
 AWS Direct Connect connection from customer network to AWS private virtual interface in AWS region.
 Direct Connect Gateway would route traffic from customer network -> direct connection in US-East1 -> Direct Connect Gateway -> US-West1 services
+
+DNS - Start of Authority Record (SOA) = name of server that supplied data for the zone, admin of zone, current data version, TTL default
+If user's DNS server does not have record for examplesite.com, that DNS server (or its DNS server) goes to the TLD (.com) DNS server
+.com or TLD has NS Records that say who owns "examplesite.com 172800 IN NS ns.awsdns.com" -> SOA record with component A, CNAME, etc.
+Simple routing policy DNS can be 1 record : many IP addresses, but if multiple randomly returns 1 to user
+Weighted routing policy in R53 adds all records for destination (required fields Weight and "Set ID") routes on Weight/sum(Weight) to that destination.
+Latency based routing in R53 pings destinations and returns one with lowest latency from requested IP. req Region and Set ID
+Failover routing policy allows DR site creation if primary fails health check. Once primary becomes actively healthy again, failover reverts back. 
+Geolocation routing returns destination based on user's location (requesting IP). req pre-populated Location dropdown and Set ID
+Multivalue Answer routes randomly, like simple routing, but each destination has health check (up to 8 health checks) and removed from pool if fail.
+R53 supports A, AAAA, CNAME, MX, NS, PTR, SOA, TXT, CAA, NAPTR, SPF, SRV, and Alias proprietary (looks like CNAME, resolvers see A or AAAA of resource)
+
+Evaluate Target Health flag set to true
+Interface VPC endpoint for Kinesis Data Streams, Gateway VPC endpoint for S3 and DynamoDB. No VPC Endpoint for MQ
+AWS Direct Connect uses BGP (Boarder Gateway Protocol) from data center to AWS, not over internet. NAT no support for ipv6
+Instance A in Subnet A can't ping Instance B in Subnet B, why? NACL on subnet B denies ICMP traffic and SG for instance B denies inbount ICMP
