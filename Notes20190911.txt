@@ -3,6 +3,14 @@ CloudFormation - provision AWS Infrastructure as Code, consistently and more eff
 YAML or JSON template upload to CloudFormation (S3 bucket) that makes API calls on your behalf
 Parameters - input custom values and env variables
 Conditions - provision resources based on environment (if prod, provision 6 desired qty. if test, desire 2)
-Resources - 1 mandatory section to create AWS resources
-Mappings - custom mappings like Region:AMI
+Resources* - 1 mandatory section to create AWS resources
+Mappings - custom mappings like Region:AMI, custom key value associations
 Transforms - reference code located in S3 like lambda code or reusable snippets of CloudFormation
+Outputs - Use outputs of this CF stack as inputs of another CF stack
+Defaults to rolling back entire stack if any 1 part fails, can manually disable rollback for troubleshooting
+
+Elastic Beanstalk - upload code in Java, .NET, PHP, Node.js, Python, Ruby, Go, and Docker onto web app platforms Apache, Nginx, IIS, etc.
+No worry about the underlying infrastructure, though you do retain control over what is provisioned.
+Updates, monitoring, metrics, and health checks included
+
+OpsWorks - chef or puppet to automate server config mgmt, AWS managed instances w/ chef/puppet, automate server OS config w/ code
