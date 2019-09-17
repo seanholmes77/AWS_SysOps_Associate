@@ -1,2 +1,7 @@
 Monitoring and Reporting
-CloudWatch
+CloudWatch - monitoring service to monitor AWS resources and apps you run on AWS 
+Can monitor Compute, Storage, CDN, Databases, SNS, SQS, Billing, etc.
+Host level metrics: CPU, Network, Disk, Status Check. RAM utilization is a custom metric, not default. 
+EC2 monitoring defaults to 5 minute intervals, enable detailed monitoring for additional fee to make 1 min intervals. Custom metrics min granularity is 1 minute.
+Create an alarm based on defined triggers and consequent actions to be taken
+Default Host Level Metrics consist of CPU, Network, Disk, Status Check
