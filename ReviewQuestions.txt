@@ -25,3 +25,17 @@ enableDnsSupport not enableDnsHostnames setting checkbox when launching ec2 to r
 Direct Connect requires SMF fiber with 1000BASE-LX and your device supports BGP
 Trusted Advisor used for service limit details, not Config
 Need auto-assign public IP setting on subnet, not instance type, for ec2 to have public IP
+Gateway VPC endpoint for S3 and DynamoDB, Interface VPC endpoint for everything else
+Create Consultant an IAM Role with session duration parameter to give temp access to S3 bucket.
+AWS EMR = Hadoop, Spark, or other big data framework
+VPC Flow logs have 10 fields: Version, Account-ID, Interface-ID, Source IP, Destination IP, Source Port, Destination Port, Protocol, Packets, Bytes, StartTime, EndTime, Action, Log-status
+AWS Personal Health Dashboard and CloudWatch rules for root Organizations account
+Can try manually rebooting instance if instance status check fails, regardless of SG, NACL, or public/private subnet
+For high CPU usage in memcached cluster, use larger cache node type and add more cache nodes, not autoscaling of nodes
+SSM not Config for CMDB, software installed, and actual config management. Config can't see software on servers
+T2.micro instance + T2 unlimited option scale you to usage spikes while maintaining low hourly cost
+Main route table (private subnet) add route with 0.0.0.0/0 destination and target of NAT Gateawy + Custom Route table (public subnet) a 0.0.0.0/0 and Internet Gateway
+S3 logging buckets should be in same AWS region as source bucket
+Submitting multiple CF stacks, add exponential backoff between calls to CreateStack API to avoid sender throttling rate exceeded
+Know EC2 instance types that support Enhanced Networking
+App Load Balancer does not log health check requests from App Load Balancer to target group, does log web socket, malformed requests, and even traffic if no health targets
