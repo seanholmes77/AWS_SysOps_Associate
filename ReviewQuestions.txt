@@ -39,3 +39,23 @@ S3 logging buckets should be in same AWS region as source bucket
 Submitting multiple CF stacks, add exponential backoff between calls to CreateStack API to avoid sender throttling rate exceeded
 Know EC2 instance types that support Enhanced Networking
 App Load Balancer does not log health check requests from App Load Balancer to target group, does log web socket, malformed requests, and even traffic if no health targets
+40 devices sending 1 KB every 10 seconds = 4 WCU write throughput for DynamoDB table
+Create a DHCP Options Set and assign to VPC if you want the VPC to use on-prem DNS server
+Cloudwatch Basic Metrics for CPU utilization, Network throughput, bytes read/write, but not space left on block storage
+Enable Billing Alerts in Account Preferences, not CloudWatch
+Lost private key for ec2 instance, detach root volume from instance and attach to another instance, then modify authorized_keys file on the volume ~/.ssh/authorized_keys
+Athena query with s3://bucketname/prefix/ but this is legacy since no unique subdomains split routing
+Assign elastic IP to primary instance if you want secondary instance to failover.
+Dedicated Hosts not instances to manager underlying CPU
+Mappings, not Conditions, in CF template to spin up resources based on region
+Manually create up to 5 Aurora MySQL cross-region read replicas, not automatic
+WebACL and CloudFront are global, not regional
+Automated backups of EBS volumes done with Amazon Data Lifecycle Manager, not AWS Config
+New intranet site allows "s3:GetObject" access with a StringLike condition using aws:Referer key & deny all other actions
+AWS Data Pipeline to automate movement and transformation of data ec2 logs -> s3 transformed -> EMR
+${aws:userid} not ${aws:username} for IAM policy arn of users
+S3 pre-signed URLs allow object uploads as well as downloads
+S3 access by aws:PrincipalOrgID condition key to match OrgID and only allow matching ID access
+1 second CloudWatch metrics using publish custom metrics and publish with high resolution
+Role, RoleSessionName, Audience, and NameID are required attributes at the identity provider end
+Enable log file integrity for log files, cannot restrict write access / only allow reads for logs to be written
