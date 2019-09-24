@@ -59,3 +59,19 @@ S3 access by aws:PrincipalOrgID condition key to match OrgID and only allow matc
 1 second CloudWatch metrics using publish custom metrics and publish with high resolution
 Role, RoleSessionName, Audience, and NameID are required attributes at the identity provider end
 Enable log file integrity for log files, cannot restrict write access / only allow reads for logs to be written
+Need to use root credentials and the CLI to enable MFA Delete on S3 versioned buckets
+Glacier retain names by sending to S3 and using lifecycle policies to move to Glacier, otherwise object name is random string
+Memory is not a built-in metric for EC2 CloudWatch, BackendConnectionErrors and HealthyHostCount are ELB metrics
+DiskReadBytes metric determines number of bytes read only from an instance store volume. reports 0 if you enable and don't have instance store attached to EC2, regardless of bytes read
+Business level Support for CloudWatch alarms based on Trusted Advisor Service limits
+Can only aggregate stats for ec2 that have detailed monitoring enabled, not including basic monitoring
+S3 static websites need same bucket name as Name of Record in R53, domains and subdomains
+Direct Connect Gateway as hub of regions and VPCs in AWS, Direct Connect Gateway <- Virtual Private Interface within VPC <- AWS Direct Connect connection <- Customer Network / on prem data center
+InsufficientInstanceCapacity vs InstanceLimitExceeded
+Step functions and CloudWatch Events to schedule EBS snapshot deletion in addition to Data Lifecycle Manager
+SpilloverCount will increase if SurgeQueueLength is full
+Personal Health Dashboard notifies of any AWS outages for underlying hardware
+KMS not for encryption in transit, SSL certificates are provided by the RDS service
+Opcode, and HSM audit logs including Time, Reboot Counter, Sequence No, Command Type, OpCode, Session Handle, Response, Log Type
+need enableDNSHostNames and enableDNSSupport set to yes for ec2 to get public DNS hostnames
+DAX = DynamoDB Accelerator managed available in-memory cache for 10x performance improvement
