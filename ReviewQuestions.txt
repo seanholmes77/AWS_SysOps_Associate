@@ -75,3 +75,22 @@ KMS not for encryption in transit, SSL certificates are provided by the RDS serv
 Opcode, and HSM audit logs including Time, Reboot Counter, Sequence No, Command Type, OpCode, Session Handle, Response, Log Type
 need enableDNSHostNames and enableDNSSupport set to yes for ec2 to get public DNS hostnames
 DAX = DynamoDB Accelerator managed available in-memory cache for 10x performance improvement
+VPC peering cannot be established for IPv6 CIDR block with overlapping IPv4 CIDR block
+MFA Delete in S3 is only for root account, not IAM user accounts, and need to add aws:MultiFactorAuthPresent to bucket policy
+Burstable instances are only T2, T3, not C4 or M4
+Denial in either Organizations SCP or IAM user policy results in no access to service, not one outranking other
+Deployment, All at Once vs Rolling vs Immutable vs Blue/Green
+aws create-app-cookie-stickiness-policy --load-balancer-name lb1 --policy-name elb-cook --cookie-name ze-cook
+SSM Inventory provides instance and application details
+After VPN tunnel is created, activate tunnel by initiating traffic from Customer side. Ping VPC servers from on-prem servers.
+Review scale out/in vs scale up/down
+Application Load Balancers support url path based routing, not Network Load Balancers.
+Set NoEcho parameter to true to hide passwords in CF stacks
+Update Policy attribute in CF and enable WaitOnResourceSignals, health check on user data script to signal CF success
+Update VPN connection to new security cypher reqs by changing crypto config on Customer Gateway. VPN Config with VGW specified when tunnel established
+Glacier Expedited Retrievals can reduce retrieval time to 1-5 mins
+Review nested stacks and UpdateReplacePolicy in CF
+Customer Master Keys doesn't save logs, but can check CMK permissions to see key usage and compare with CloudTrail logs
+Redshift uses User Logs, User Activity Logs, and Connection Logs (not transaction logs)
+RDS errors if trying to set retention period to 0 of db using a Read Replica
+Global Tables in DynamoDB for multi-region table copies and continuing propagation of data changes to all (like a cross regional read + write replica)
