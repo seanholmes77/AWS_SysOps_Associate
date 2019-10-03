@@ -94,3 +94,17 @@ Customer Master Keys doesn't save logs, but can check CMK permissions to see key
 Redshift uses User Logs, User Activity Logs, and Connection Logs (not transaction logs)
 RDS errors if trying to set retention period to 0 of db using a Read Replica
 Global Tables in DynamoDB for multi-region table copies and continuing propagation of data changes to all (like a cross regional read + write replica)
+Parquet and ORC are columnar formats for Athena
+AWS ignores query-string parameters beginning with "x-", but they are included in access log records e.g. "s3.amazonaws.com/bucket_name/photos/2019/09/Paddy.jpg?x-user=johndoe"
+S3:GetObjectAcl and S3:PutObjectAcl not just GetObject and PutObject. Also need trust policy that allows to assume IAM role.
+Config Aggregated View dispays consolidated report of resources count/compliance for all accounts and all regions
+Config = Resource inventory, config history, enable config change notifications. CloudWatch = system-wide visibility for resource utilization, app performance, operational health. Think Config for any config changes
+AutoScaling throws error if 2 events are scheduled for the same time
+For tags, max key length is 128 UTF-8 chars and max value length of 256 UTF-8 chars
+When creating AMI, need accountID, X.509 cert and private key for encrypting AMI in transit, access/secret access key
+If SSL listener on ELB and back-end instances, ELB will intercept request to add cookie details if sticky session enabled
+CF defaults to "automatic rollback on error" for all resources even if just one service errors during stack deploy
+3600 seconds (1 hr) is max timeout for connection draining
+EC2 enables detailed monitoring on ec2 with default launch config of Auto Scaling
+CloudWatch alarms look back for further data points if data is missing during their designated alarm period
+
