@@ -107,4 +107,24 @@ CF defaults to "automatic rollback on error" for all resources even if just one 
 3600 seconds (1 hr) is max timeout for connection draining
 EC2 enables detailed monitoring on ec2 with default launch config of Auto Scaling
 CloudWatch alarms look back for further data points if data is missing during their designated alarm period
+Canonical ID is a unique ID for your acct, can use to grant S3 ACL
+put-metric-data command and statistic-values parameter if sending sum, min, max, sample size
+PutMetricData API limited to 40 KB for HTTP POST requests
+Can delete VPC with existing VPN connection (virtual private gateway attached) if subnets but no instances
+If CloudWatch but no EC2 access, will let you create alarm but not associate action with it.
+If autoscaling terminate process is suspended, can get more than max qty instances
+SQL Server uses native mirroring to achieve HA, while MySQL, MariaDB, Oracle, and Postgres all use aws MultiAZ service for synchronous physical replication
+AWS/CloudTrail is not a valid namespace for CloudWatch metrics
+--no-should-decrement-desired-capacity is a real AWS cli parameter for terminiate-instance-in-auto-scaling-group i-123123
+Can't expand ipv6 CIDR, but can expand ipv4 CIDR by adding up to 4 secondary CIDR ranges to the 1 primary
+ELBs use predefined or custom security policies to detail ciphers and supported protocols for SSL negotiations
+dd command in linux used to initialize EBS volume
+IAM usernames can be up to 64 letters, digits, +-=,.@ so not #!$%^&*() etc
+CloudWatch will accept data in range of up to 2 weeks in the past and 2 hrs in future
+RDS console logs include error log, slow query log, and general log - not transaction log
+Can use different encryption key for each version of an S3 object
+If using RDS MultiAZ and scale up storage, during maintenance window it performs maintenance on standby, promotes standby to master, performs maintenance on previous primary
+Cannot use S3 console to upload or modify object using SSE-C
+
+
 
