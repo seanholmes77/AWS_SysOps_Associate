@@ -125,6 +125,13 @@ RDS console logs include error log, slow query log, and general log - not transa
 Can use different encryption key for each version of an S3 object
 If using RDS MultiAZ and scale up storage, during maintenance window it performs maintenance on standby, promotes standby to master, performs maintenance on previous primary
 Cannot use S3 console to upload or modify object using SSE-C
-
-
-
+If need LDAP authentication in AWS from on-prem LDAP, create VPN between on prem and AWS. AD connector in AWS can then replicate from on-prem LDAP and provide low-latency authentication to AWS app
+Beware of Oracle licensing if read replica in different region. Golden Gate is 3rd party log-based Change Data Capture to achieve.
+If increased Elasticache evictions, change to node size with more CPU/RAM - not add node to the cluster
+RDS Automated Backups only have 35 day retention period
+If AWS system status check fails (error message loss of network connectivity), terminate and build new instance-store backed AMI, stop/start EBS backed AMI attempting to change physical host, wait for EC2 to resolve & post to forum
+disk usage (EBS disk space) requires custom CloudWatch metric
+RDS promoting read replica to primary requires DNS change over (and enable MultiAZ on new)
+Upgrade instance type if network load or throughput bottleneck
+JSON templates for CF and OpsWorks (not Ruby)
+RDS Automated backups are required before creating read replicas
