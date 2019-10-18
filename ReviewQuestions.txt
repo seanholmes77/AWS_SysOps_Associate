@@ -105,7 +105,7 @@ When creating AMI, need accountID, X.509 cert and private key for encrypting AMI
 If SSL listener on ELB and back-end instances, ELB will intercept request to add cookie details if sticky session enabled
 CF defaults to "automatic rollback on error" for all resources even if just one service errors during stack deploy
 3600 seconds (1 hr) is max timeout for connection draining
-EC2 enables detailed monitoring on ec2 with default launch config of Auto Scaling
+EC2 enables detailed monitoring on ec2 with default launch config of Auto Scaling and charges user for detailed monitoring
 CloudWatch alarms look back for further data points if data is missing during their designated alarm period
 Canonical ID is a unique ID for your acct, can use to grant S3 ACL
 put-metric-data command and statistic-values parameter if sending sum, min, max, sample size
@@ -135,3 +135,34 @@ RDS promoting read replica to primary requires DNS change over (and enable Multi
 Upgrade instance type if network load or throughput bottleneck
 JSON templates for CF and OpsWorks (not Ruby)
 RDS Automated backups are required before creating read replicas
+AWS can delete an SQS queue after 30 days w/o notification if 0 actions of: SendMessage, ReceiveMessage, DeleteMessage, GetQueueAttributes, SetQueueAttributes, AddPermission, RemovePermission
+Can manually change health of instance to healthy using set-instance-health command
+Object remains in Glacier storage class when retrieved, regardless of duration requested
+AMIs can also save block device mapping and info about an instance store volume additional to the root
+If shutdown behavior of ec2 instance set to terminate and termination protection enabled, it will still terminate the instance on shutdown w/in OS.
+Windows EC2 only displays the last 3 system event log errors
+Remember NACLs are stateless, so deny all on outbound will do just that
+S3 allows objects up to 5 TB, but largest in a single PUT request is 5 GB - use multipart upload for anything >100MB
+Free tier includes 5GB S3, 750 hrs RDS and ELB, 250k IOT msg, 500 MB EC2 ephem storage, 50 GB CDN, 30GB EBS
+SNS cannot sent to SES, can send to HTTP, SQS, Application, Lambda, SMS
+ELB connection draining set as 300 seconds by default with 3600 seconds max
+100,000 is default EBS snapshot limit
+No fee for EC2 Enhanced Networking, just qualifying instance type and AMI
+SAML and OpenID Connect are 2 Identity Providers for AWS, not LDAP/AD.
+EC2 instance can be launched in public subnet without an elastic/public IP to potentially cause error
+Server Order Preference not supported on ELB Security Policy 2011-08, but all the ones 2014-01 to 2016-08 do
+CloudWatch alarms can do Ec2 action, notification, or autoscaling - not S3 action
+RDS db may experience outage when scaling compute resources
+RDS allows 5 read replicas by default of all but MS SQL dbs
+CloudWatch does not allow detailed monitoring for EMR service
+put-metric-data has a limit of 8KB for GET and 40KB for PUT requests
+gp2 EBS volumes can have a min size of 1GB
+Tebibyte (2^40) vs Terabyte (10^12). 1 TiB = 1.1 TB. 1 TiB = max EBS PIOPS volume size.
+IAM only supports the username attribute (can use tags though)
+Legacy failover could create secondary ENI that can be moved to failover instance or assign 2nd failover private IP to primary ENI
+IAM requires unique logins for each user for each account, can't make 2 users same login alias with different pw
+Test CloudWatch alarms by changing alarm state with CLI
+Object Access policies do not grant access in S3, but these 3 do: IAM User access, bucket access policy, S3 ACL
+Delete ELB with registered instances, instances keep running and ELB does delete
+Health checks can be pings, connection attempts (TCP/UDP ports), or requests to EC2
+SQS queue can be deleted with messages still in it
