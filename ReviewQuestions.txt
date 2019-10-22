@@ -1,27 +1,31 @@
 Question Review
-Launching app to communicate over IPv6, ensure your VPC works in Dual Stack mode so legacy resources can use IPv4 to communicate with IPv6 resources too
+**Launching app to communicate over IPv6, ensure your VPC works in Dual Stack mode so legacy resources can use IPv4 to communicate with IPv6 resources too
 For IPv6 ensure instance type, route tables, SGs, NACLs, DHCPv6 are being used
 AWS does not recommend using RAID 5 or 6 due to parity write operations consuoming 20-30% more IOPS. 2 volume RAID 0 can outperform 4 volume RAID 6
 AWS Cost & Usage Report has multiple files with flexible column structure, Detailed Billing Report is a single file with fixed columns? 
 Complete Vault Lock iniated w/in 24 hrs using Lock ID generated at initial Vault Lock for Glacier legal document archival.
 AWS Organizations allows you to apply Service Control Policies to OUs that contain Member Accounts
-Know the difference between S3 Bucket ACL and Policy - Access to Upload / Write (logs) to bucket is gratned by ACL, not policy
+**Know the difference between S3 Bucket ACL and Policy - Log Delivery Group gets object Put access granted by bucket ACL, not policy
 Logging bucket can not be encrypted, even when bucket it is logging on should be.
-Systems Manager on 50 DB servers on prem, download and install SSM agent on prem servers, create IAM role to use SSM, Install TLS certs on prem servers, managed instance activation for data center servers
-State manager with Command Document to maintain predefined state for regional ec2 instances
+**Systems Manager on 50 DB servers on prem, create a managed instance activation, download and install SSM agent on prem servers, create IAM role to use SSM, Install TLS certs on prem servers, managed instance activation for data center servers
+**State manager with Command Document to maintain predefined state for regional ec2 instances
 VPC Endpoint Policies also provide AWS resource access 
-AWS Support terms of high availability for Basic, Developer, Business (Prod down <1hr + prod impaired <4hr), Enterprise (Business + biz crit <15min, operational reviews)
-Config Rules can check for any desiarable or undesirable condition of AWS resources
+**AWS Support terms of high availability for Basic, Developer, Business (Prod down <1hr + prod impaired <4hr), Enterprise (Business + biz crit <15min, operational reviews)
+**Config enabled regionally and Rules can check for any desiarable or undesirable condition of AWS resources. Records your environment and config aggregator not required to use AWS Organizations for diff accounts/regions.
+If Conif Recorder stopped, rules with periodic triggers run at specificed frequency, while rules for config changes don't run evals
 EBS volume limit reached or corrupt EBS snapshot could cause an instance to never launch past pending state
 CloudFormation Stack signaled successful only if package installed, can use cfn-signal helper script to ensure
 VPN between on prem datacenter and AWS VPC need Customer Gateway in datacenter, Virtual Private Gateawy on VPC, and then VPN connection created between them.
 Master account of Organizations creates OU and Service Control Policies in AWS Organizations service, invite external accounts to join org, pay all charges accrued by accounts in org
 ELB access logs can go directly to S3 and do not have to access from CloudWatch logs service
-CloudWatch Event rule can auto trigger Network Assessment post changes in SGs
+**CloudWatch requires detailed monitoring for aggregating metrics. CW Event rule can auto trigger Network Assessment post changes in SGs
 Redshift OLAP Business Intelligence reports
+**"RI Coverage" reports, not "RI Utilization" in csv
+QuickSight enterprise edition allows AD groups in directory services to grant access, standard can invite IAM user. Enterprise supports encryption at rest
 AWS linux AMI has Inspector already installed
 RDS Performance Insights to improve performance of dbs
-enableDnsSupport not enableDnsHostnames setting checkbox when launching ec2 to reserve public dns name
+RDS read replicas should be encrypted with different key from master instance, key used in same region as read replica
+enableDnsSupport (resolution) not enableDnsHostnames (hostnames) setting checkbox when launching ec2 to reserve public dns name
 Direct Connect requires SMF fiber with 1000BASE-LX and your device supports BGP
 Trusted Advisor used for service limit details, not Config
 Need auto-assign public IP setting on subnet, not instance type, for ec2 to have public IP
@@ -56,7 +60,7 @@ AWS Data Pipeline to automate movement and transformation of data ec2 logs -> s3
 ${aws:userid} not ${aws:username} for IAM policy arn of users
 S3 pre-signed URLs allow object uploads as well as downloads
 S3 access by aws:PrincipalOrgID condition key to match OrgID and only allow matching ID access
-1 second CloudWatch metrics using publish custom metrics and publish with high resolution
+1 second CloudWatch metrics using publish custom metrics and publish as "high resolution custom metric"
 Role, RoleSessionName, Audience, and NameID are required attributes at the identity provider end
 Enable log file integrity for log files, cannot restrict write access / only allow reads for logs to be written
 Need to use root credentials and the CLI to enable MFA Delete on S3 versioned buckets
@@ -166,3 +170,9 @@ Object Access policies do not grant access in S3, but these 3 do: IAM User acces
 Delete ELB with registered instances, instances keep running and ELB does delete
 Health checks can be pings, connection attempts (TCP/UDP ports), or requests to EC2
 SQS queue can be deleted with messages still in it
+Can burst up to 3000 IOPS, can increase the volume size if need >3k and <10k (~3 TB), need PIOPS if >10k
+Request Tracing on ELB tracks HTTP requets from clients to targets. ELB updates X-Amzn-Trace-Id and enabled access logs log contents of header
+VolumeThroughputPerecentage to determine I/O operations delivered of EBS total IOPS provisioned
+"Disk usage" activity is considered a host level metric, but "disk full percentage" requires custom metric
+DynamoDB AutoScaling does exist and needs to be enabled to dynamically adjust to traffic patterns
+Need IAM permissions policy allowing user to pass a role (iam:GetRole, iam:PassRole) and a trust policy that allows service to assume that role (sts:AssumeRole)
