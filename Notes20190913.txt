@@ -5,3 +5,8 @@ Host level metrics: CPU, Network, Disk, Status Check. RAM utilization is a custo
 EC2 monitoring defaults to 5 minute intervals, enable detailed monitoring for additional fee to make 1 min intervals. Custom metrics min granularity is 1 minute.
 Create an alarm based on defined triggers and consequent actions to be taken
 Default Host Level Metrics consist of CPU, Network, Disk, Status Check
+SSM agent can be installed on prem infra to report to cloudwatch, or crontab put_metric
+Cost Explorer Tags (as a subset of all tags) have to be activated before you can sort by those tags in cost explorer
+Elasticache uses 2 flavors (memcached and redis). CPU Utilization - add more nodes if >90%, swap usage, evictions, concurrent connections
+CloudWatch Dashboards are international and can be viewed regardless of selected region
+Save dashboard after making changes.
