@@ -10,7 +10,7 @@ Logging bucket can not be encrypted, even when bucket it is logging on should be
 **Systems Manager on 50 DB servers on prem, create a managed instance activation, download and install SSM agent on prem servers, create IAM role to use SSM, Install TLS certs on prem servers, managed instance activation for data center servers
 **State manager with Command Document to maintain predefined state for regional ec2 instances
 VPC Endpoint Policies also provide AWS resource access 
-**AWS Support terms of high availability for Basic, Developer, Business (Prod down <1hr + prod impaired <4hr), Enterprise (Business + biz crit <15min, operational reviews)
+****AWS Support terms of high availability for Basic, Developer (biz hours email access to Support), Business (Prod down <1hr, prod impaired <4hr, 24x7 phone/email/chat access to Support), Enterprise (Business + biz crit <15min, operational reviews)
 **Config enabled regionally and Rules can check for any desiarable or undesirable condition of AWS resources. Records your environment and config aggregator not required to use AWS Organizations for diff accounts/regions.
 If Conif Recorder stopped, rules with periodic triggers run at specificed frequency, while rules for config changes don't run evals
 EBS volume limit reached or corrupt EBS snapshot could cause an instance to never launch past pending state
@@ -30,10 +30,10 @@ Direct Connect requires SMF fiber with 1000BASE-LX and your device supports BGP
 Trusted Advisor used for service limit details, not Config
 Need auto-assign public IP setting on subnet, not instance type, for ec2 to have public IP
 Gateway VPC endpoint for S3 and DynamoDB, Interface VPC endpoint for everything else
-Create Consultant an IAM Role with session duration parameter to give temp access to S3 bucket.
+**Create Consultant an IAM Role (not user) with session duration parameter to give temp access to S3 bucket.
 AWS EMR = Hadoop, Spark, or other big data framework
 VPC Flow logs have 10 fields: Version, Account-ID, Interface-ID, Source IP, Destination IP, Source Port, Destination Port, Protocol, Packets, Bytes, StartTime, EndTime, Action, Log-status
-AWS Personal Health Dashboard and CloudWatch rules for root Organizations account
+AWS Personal Health Dashboard and CloudWatch rules for root Organizations account for all accounts, and not at OU level.
 Can try manually rebooting instance if instance status check fails, regardless of SG, NACL, or public/private subnet
 For high CPU usage in memcached cluster, use larger cache node type and add more cache nodes, not autoscaling of nodes
 SSM not Config for CMDB, software installed, and actual config management. Config can't see software on servers
@@ -46,22 +46,22 @@ App Load Balancer does not log health check requests from App Load Balancer to t
 40 devices sending 1 KB every 10 seconds = 4 WCU write throughput for DynamoDB table
 Create a DHCP Options Set and assign to VPC if you want the VPC to use on-prem DNS server
 Cloudwatch Basic Metrics for CPU utilization, Network throughput, bytes read/write, but not space left on block storage
-Enable Billing Alerts in Account Preferences, not CloudWatch
+Enable Billing Alerts in My Account > Billing Preferences, not CloudWatch
 Lost private key for ec2 instance, detach root volume from instance and attach to another instance, then modify authorized_keys file on the volume ~/.ssh/authorized_keys
 Athena query with s3://bucketname/prefix/ but this is legacy since no unique subdomains split routing
 Assign elastic IP to primary instance if you want secondary instance to failover.
 Dedicated Hosts not instances to manager underlying CPU
 Mappings, not Conditions, in CF template to spin up resources based on region
 Manually create up to 5 Aurora MySQL cross-region read replicas, not automatic
-WebACL and CloudFront are global, not regional
+**WebACL and CloudFront are global, not regional
 Automated backups of EBS volumes done with Amazon Data Lifecycle Manager, not AWS Config
-New intranet site allows "s3:GetObject" access with a StringLike condition using aws:Referer key & deny all other actions
+**New intranet site with stringent access allows "s3:GetObject" access with a StringLike condition using aws:Referer key & deny all other actions from intranet website.
 AWS Data Pipeline to automate movement and transformation of data ec2 logs -> s3 transformed -> EMR
 ${aws:userid} not ${aws:username} for IAM policy arn of users
-S3 pre-signed URLs allow object uploads as well as downloads
-S3 access by aws:PrincipalOrgID condition key to match OrgID and only allow matching ID access
+**S3 pre-signed URLs can be used for object uploads as well as downloads
+**S3 access by aws:PrincipalOrgID condition key to match OrgID and only allow matching ID access
 1 second CloudWatch metrics using publish custom metrics and publish as "high resolution custom metric"
-Role, RoleSessionName, Audience, and NameID are required attributes at the identity provider end
+**Role, RoleSessionName, Audience, and NameID are required attributes at the identity provider end. Watch https://www.youtube.com/watch?v=t6WWda_AY04
 Enable log file integrity for log files, cannot restrict write access / only allow reads for logs to be written
 Need to use root credentials and the CLI to enable MFA Delete on S3 versioned buckets
 Glacier retain names by sending to S3 and using lifecycle policies to move to Glacier, otherwise object name is random string
@@ -96,7 +96,7 @@ Glacier Expedited Retrievals can reduce retrieval time to 1-5 mins
 Review nested stacks and UpdateReplacePolicy in CF
 Customer Master Keys doesn't save logs, but can check CMK permissions to see key usage and compare with CloudTrail logs
 Redshift uses User Logs, User Activity Logs, and Connection Logs (not transaction logs)
-RDS errors if trying to set retention period to 0 of db using a Read Replica
+RDS errors if trying to set retention period to 0 of db using a Read Replica. Can have up to 5 RDS read replicas of MySQL, PostgreSQL, MariaDB
 Global Tables in DynamoDB for multi-region table copies and continuing propagation of data changes to all (like a cross regional read + write replica)
 Parquet and ORC are columnar formats for Athena
 AWS ignores query-string parameters beginning with "x-", but they are included in access log records e.g. "s3.amazonaws.com/bucket_name/photos/2019/09/Paddy.jpg?x-user=johndoe"
@@ -108,7 +108,7 @@ For tags, max key length is 128 UTF-8 chars and max value length of 256 UTF-8 ch
 When creating AMI, need accountID, X.509 cert and private key for encrypting AMI in transit, access/secret access key
 If SSL listener on ELB and back-end instances, ELB will intercept request to add cookie details if sticky session enabled
 CF defaults to "automatic rollback on error" for all resources even if just one service errors during stack deploy
-3600 seconds (1 hr) is max timeout for connection draining
+3600 seconds (1 hr) is max timeout for ELB connection draining, 300 seconds by default
 EC2 enables detailed monitoring on ec2 with default launch config of Auto Scaling and charges user for detailed monitoring
 CloudWatch alarms look back for further data points if data is missing during their designated alarm period
 Canonical ID is a unique ID for your acct, can use to grant S3 ACL
@@ -136,7 +136,7 @@ RDS Automated Backups only have 35 day retention period
 If AWS system status check fails (error message loss of network connectivity), terminate and build new instance-store backed AMI, stop/start EBS backed AMI attempting to change physical host, wait for EC2 to resolve & post to forum
 disk usage (EBS disk space) requires custom CloudWatch metric
 RDS promoting read replica to primary requires DNS change over (and enable MultiAZ on new)
-Upgrade instance type if network load or throughput bottleneck
+**Upgrade instance type if network load or throughput bottleneck. Can stop instance, change instance type, start instance on new type.
 JSON templates for CF and OpsWorks (not Ruby)
 RDS Automated backups are required before creating read replicas
 AWS can delete an SQS queue after 30 days w/o notification if 0 actions of: SendMessage, ReceiveMessage, DeleteMessage, GetQueueAttributes, SetQueueAttributes, AddPermission, RemovePermission
@@ -176,3 +176,5 @@ VolumeThroughputPerecentage to determine I/O operations delivered of EBS total I
 "Disk usage" activity is considered a host level metric, but "disk full percentage" requires custom metric
 DynamoDB AutoScaling does exist and needs to be enabled to dynamically adjust to traffic patterns
 Need IAM permissions policy allowing user to pass a role (iam:GetRole, iam:PassRole) and a trust policy that allows service to assume that role (sts:AssumeRole)
+Storage Gateway supports KMS encryption at rest using CMKs (Customer Master Keys)
+Redshift cluster snapshot can be taken and moved to another region

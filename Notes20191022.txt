@@ -1,1 +1,23 @@
 Deployment and Provisioning
+InstanceLimitExceeded - default ec2 limit of 20, contact AWS request limit increase
+InufficientInstanceCapacity - AWS does not have resource capacity to accomodate request
+3 IOPS/GB allocated. gp2 max is actually 16k IOPS (5 TB), but can start using io1 (PIOPS) >10k IOPS
+ALBs scale automatically when needed, but this may change IP target to clients as new ALBs spun up to help
+NLBs create EIP in each enabled subnet, so firewall rule mgmt is easy and 1 NLB static IP per 1 subnet
+Can put ALB scaling behind an NLB's consistent IPs but expensive. NLBs can handle millions request per second anyway though.
+Classic Load Balancers do provide sticky sessions and x-forwarded-for header only, no intelligent routing like ALB
+Pre-Warm ELB before spike in traffic
+Backend Client Side Errors 4XX
+400 - malformed request (header)
+401 - unauthorized user access denied
+403 - forbidden - request blocked for everyone, ACL/WAF level
+406 - client closed connection or timed out before load balance responded
+463 - request with X-Forwarded-For field with >30 IP addresses
+Backend Server Side Errors 5XX
+500 - internal server error on lb
+502 - bad gateway, application server closed connection or sent back malformed response
+503 - service available - no registered target servers for LB
+504 - Gateway timeout application not responding, problem with web server/db
+561 - Unauthorized user error code from ID provider when trying to authenticate
+Classic Load Balancers have SpilloverCount and SurgeQueueLength with a max queue size of 1024, additional requests are rejected
+Modern LB use Latency and RequestCount = # of requests over specified interval

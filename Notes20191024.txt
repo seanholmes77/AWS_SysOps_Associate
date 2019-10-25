@@ -1,0 +1,3 @@
+High Availability
+Elasticity is like a rubber band where your infra stretches to meet temp spikes in demand then goes back to baseline over short period of time
+Scalability is for increasing infra for longer time frames like weeks, days, months, and years. 
