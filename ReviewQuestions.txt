@@ -5,17 +5,17 @@ AWS does not recommend using RAID 5 or 6 due to parity write operations consuomi
 AWS Cost & Usage Report has multiple files with flexible column structure, Detailed Billing Report is a single file with fixed columns? 
 Complete Vault Lock iniated w/in 24 hrs using Lock ID generated at initial Vault Lock for Glacier legal document archival.
 AWS Organizations allows you to apply Service Control Policies to OUs that contain Member Accounts
-**Know the difference between S3 Bucket ACL and Policy - Log Delivery Group gets object Put access granted by bucket ACL, not policy
+**Know the difference between S3 Bucket ACL and Policy - Log Delivery Group gets object Put access granted by bucket ACL, not policy. ACL does not grant via IAM groups, but can give IAM user, root user, s3 log delivery group, or public access.
 Logging bucket can not be encrypted, even when bucket it is logging on should be.
 **Systems Manager on 50 DB servers on prem, create a managed instance activation, download and install SSM agent on prem servers, create IAM role to use SSM, Install TLS certs on prem servers, managed instance activation for data center servers
 **State manager with Command Document to maintain predefined state for regional ec2 instances
 VPC Endpoint Policies also provide AWS resource access 
-****AWS Support terms of high availability for Basic, Developer (biz hours email access to Support), Business (Prod down <1hr, prod impaired <4hr, 24x7 phone/email/chat access to Support), Enterprise (Business + biz crit <15min, operational reviews)
+****AWS Support terms. Basic, Developer (biz hours email access to Support), Business (Prod down <1hr, prod impaired <4hr, 24x7 phone/email/chat access to Support), Enterprise (Business + biz crit <15min, operational reviews). CW alarms for Trusted Advisor checks only available to Biz + Enterprise.
 **Config enabled regionally and Rules can check for any desiarable or undesirable condition of AWS resources. Records your environment and config aggregator not required to use AWS Organizations for diff accounts/regions.
 If Conif Recorder stopped, rules with periodic triggers run at specificed frequency, while rules for config changes don't run evals
 EBS volume limit reached or corrupt EBS snapshot could cause an instance to never launch past pending state
 CloudFormation Stack signaled successful only if package installed, can use cfn-signal helper script to ensure
-VPN between on prem datacenter and AWS VPC need Customer Gateway in datacenter, Virtual Private Gateawy on VPC, and then VPN connection created between them.
+VPN between on prem datacenter and AWS VPC need Customer Gateway in datacenter, Virtual Private Gateawy on VPC, and then VPN connection created between them. Route in VPC for VGW-id in main route table (private subnet).
 Master account of Organizations creates OU and Service Control Policies in AWS Organizations service, invite external accounts to join org, pay all charges accrued by accounts in org
 ELB access logs can go directly to S3 and do not have to access from CloudWatch logs service
 **CloudWatch requires detailed monitoring for aggregating metrics. CW Event rule can auto trigger Network Assessment post changes in SGs
@@ -29,13 +29,14 @@ enableDnsSupport (resolution) not enableDnsHostnames (hostnames) setting checkbo
 Direct Connect requires SMF fiber with 1000BASE-LX and your device supports BGP
 Trusted Advisor used for service limit details, not Config
 Need auto-assign public IP setting on subnet, not instance type, for ec2 to have public IP
-Gateway VPC endpoint for S3 and DynamoDB, Interface VPC endpoint for everything else
+Gateway VPC endpoint (more durable bc not a single endpoint) for S3 and DynamoDB, Interface VPC endpoint for everything else like SQS
 **Create Consultant an IAM Role (not user) with session duration parameter to give temp access to S3 bucket.
 AWS EMR = Hadoop, Spark, or other big data framework
 VPC Flow logs have 10 fields: Version, Account-ID, Interface-ID, Source IP, Destination IP, Source Port, Destination Port, Protocol, Packets, Bytes, StartTime, EndTime, Action, Log-status
 AWS Personal Health Dashboard and CloudWatch rules for root Organizations account for all accounts, and not at OU level.
 Can try manually rebooting instance if instance status check fails, regardless of SG, NACL, or public/private subnet
-For high CPU usage in memcached cluster, use larger cache node type and add more cache nodes, not autoscaling of nodes
+For high CPU usage in memcached cluster, use larger cache node type and add more cache nodes, not autoscaling of nodes. 
+memcached does not support multi-AZ, and redis does
 SSM not Config for CMDB, software installed, and actual config management. Config can't see software on servers
 T2.micro instance + T2 unlimited option scale you to usage spikes while maintaining low hourly cost
 Main route table (private subnet) add route with 0.0.0.0/0 destination and target of NAT Gateawy + Custom Route table (public subnet) a 0.0.0.0/0 and Internet Gateway
@@ -68,8 +69,8 @@ Glacier retain names by sending to S3 and using lifecycle policies to move to Gl
 Memory is not a built-in metric for EC2 CloudWatch, BackendConnectionErrors and HealthyHostCount are ELB metrics
 DiskReadBytes metric determines number of bytes read only from an instance store volume. reports 0 if you enable and don't have instance store attached to EC2, regardless of bytes read
 Business level Support for CloudWatch alarms based on Trusted Advisor Service limits
-Can only aggregate stats for ec2 that have detailed monitoring enabled, not including basic monitoring
-S3 static websites need same bucket name as Name of Record in R53, domains and subdomains
+**Can only aggregate stats for ec2 that have detailed monitoring enabled, not including basic monitoring
+**S3 static websites need same bucket name as Name of Record in R53, applies to both domains and subdomains
 Direct Connect Gateway as hub of regions and VPCs in AWS, Direct Connect Gateway <- Virtual Private Interface within VPC <- AWS Direct Connect connection <- Customer Network / on prem data center
 InsufficientInstanceCapacity vs InstanceLimitExceeded
 Step functions and CloudWatch Events to schedule EBS snapshot deletion in addition to Data Lifecycle Manager
@@ -84,7 +85,7 @@ MFA Delete in S3 is only for root account, not IAM user accounts, and need to ad
 Burstable instances are only T2, T3, not C4 or M4
 Denial in either Organizations SCP or IAM user policy results in no access to service, not one outranking other
 Deployment, All at Once vs Rolling vs Immutable vs Blue/Green
-aws create-app-cookie-stickiness-policy --load-balancer-name lb1 --policy-name elb-cook --cookie-name ze-cook
+**aws create-app-cookie-stickiness-policy --load-balancer-name lb1 --policy-name elb-cook --cookie-name ze-cook
 SSM Inventory provides instance and application details
 After VPN tunnel is created, activate tunnel by initiating traffic from Customer side. Ping VPC servers from on-prem servers.
 Review scale out/in vs scale up/down
@@ -147,7 +148,7 @@ If shutdown behavior of ec2 instance set to terminate and termination protection
 Windows EC2 only displays the last 3 system event log errors
 Remember NACLs are stateless, so deny all on outbound will do just that
 S3 allows objects up to 5 TB, but largest in a single PUT request is 5 GB - use multipart upload for anything >100MB
-Free tier includes 5GB S3, 750 hrs RDS and ELB, 250k IOT msg, 500 MB EC2 ephem storage, 50 GB CDN, 30GB EBS
+Free tier includes 5GB S3, 750hrs RDS and ELB, 250k IOT msg, 500MB EC2 ephem storage, 50GB CDN, 30GB EBS
 SNS cannot sent to SES, can send to HTTP, SQS, Application, Lambda, SMS
 ELB connection draining set as 300 seconds by default with 3600 seconds max
 100,000 is default EBS snapshot limit
@@ -178,3 +179,15 @@ DynamoDB AutoScaling does exist and needs to be enabled to dynamically adjust to
 Need IAM permissions policy allowing user to pass a role (iam:GetRole, iam:PassRole) and a trust policy that allows service to assume that role (sts:AssumeRole)
 Storage Gateway supports KMS encryption at rest using CMKs (Customer Master Keys)
 Redshift cluster snapshot can be taken and moved to another region
+RDS Parameter Group can be used to encrypt all traffic in transit in combo with SSL certs provided by RDS.
+Snapshots = EBS, AMI = Volume when copying to another region
+Custom AWS KMS encryption key (not default KMS key) needs to be used to transfer RDS snapshot to another account
+RDS, Elasticache, Redshift, DynamoDB DAX, Neptune, DocumentDB all have maintenance windows while EC2 and Lambda do not.
+Creating read replica in another region, use multi-AZ or will have to re-deploy replica if failure. Aurora cluster must be deleted at the node level (2 readers and 1 writer), and then it deletes cluster automatically.
+Encrypted by default, if encryption on read replicas will be encrypted too. Lowest priority failover wins
+CloudFront should cache based on specified request headers, not all headers. Case-sensitive and all inconsistencies hit origin. Cache on Cookie Values. Avoid compression or ssl if unnecessary.
+ElastiCache is a key-value store and cannot store relational data, but Redis is more feature rich including sorted sets, pub/sub, and in-memory data store
+Snowball is just data transport device, while Snowball Edge allows for some computing capability and is intended for manipulation before upload to AWS.
+WAFs integrate with App load balancers, CloudFront, and API Gateway. WAF is not compatible with Network LBs or Classic LBs
+MySQL = 3306, MSSQL = 1433
+Windows EC2, console outputs last 3 system event log errors. Linux displays exact same console output as phyiscal monitor.
